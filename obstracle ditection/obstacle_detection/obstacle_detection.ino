@@ -30,4 +30,12 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 const int OBSTACLE_CM  = 20;
 const int MAX_DISTANCE = 400;
 
-
+long distanceMeasure();
+void forward(int speedVal);
+void backward(int speedVal);
+void turnLeft(int speedVal);
+void turnRight(int speedVal);
+void stopMotors();
+long averDistance();
+void display(long data);
+void smartAvoid();

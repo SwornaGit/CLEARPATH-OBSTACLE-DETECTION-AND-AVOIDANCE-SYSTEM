@@ -17,3 +17,10 @@
 #define ECHO_PIN 6
 
 #define IR_PIN 5   // IR sensor OUT -> D5 (Leonardo)
+
+// --- tuning values (adjust to your car) ---
+const int SPEED_MOVE = 150;
+const int SPEED_TURN = 150;
+
+const int TURN_TIME_MS = 500;     // how long a "right try" turn is
+const int PAUSE_MS     = 500;     // small pause between actions

@@ -164,3 +164,8 @@ long averDistance() {
     }
     delay(10);  // small gap between pings
   }
+  if (count == 0) {
+    return MAX_DISTANCE;  // all were bad
+  }
+  return sum / count;     // average of valid readings
+}

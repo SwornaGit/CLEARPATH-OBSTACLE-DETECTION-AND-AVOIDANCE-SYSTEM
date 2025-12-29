@@ -179,3 +179,14 @@ void forward(int speedVal) {
   digitalWrite(IN4_PIN, LOW);
   analogWrite(ENB_PIN, speedVal);
 }
+
+void backward(int speedVal) {
+  digitalWrite(IN1_PIN, LOW);
+  digitalWrite(IN2_PIN, HIGH);
+  analogWrite(ENA_PIN, speedVal);
+
+  digitalWrite(IN3_PIN, LOW);
+  digitalWrite(IN4_PIN, HIGH);
+  analogWrite(ENB_PIN, speedVal);
+}
+

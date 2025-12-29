@@ -12,3 +12,8 @@
 #define IN3_PIN 10  // Forward
 #define IN4_PIN 8   // backward
 
+// Ultrasonic Sensor
+#define TRIG_PIN 7
+#define ECHO_PIN 6
+
+#define IR_PIN 5   // IR sensor OUT -> D5 (Leonardo)

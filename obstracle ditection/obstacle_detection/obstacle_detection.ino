@@ -24,3 +24,10 @@ const int SPEED_TURN = 150;
 
 const int TURN_TIME_MS = 500;     // how long a "right try" turn is
 const int PAUSE_MS     = 500;     // small pause between actions
+// If unsure, run I2C Scanner
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+const int OBSTACLE_CM  = 20;
+const int MAX_DISTANCE = 400;
+
+

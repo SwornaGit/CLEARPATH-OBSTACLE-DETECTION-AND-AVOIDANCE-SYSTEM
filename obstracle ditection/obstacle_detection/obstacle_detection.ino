@@ -41,3 +41,91 @@ void display(long data);
 void smartAvoid();
 
 
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Wire.begin();         // Start I2C communication
+  lcd.init();           // Initialize LCD
+  lcd.backlight();      // Turn on backlight
+
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(ENA_PIN, OUTPUT);
+  pinMode(IN1_PIN, OUTPUT);
+  pinMode(IN2_PIN, OUTPUT);
+
+  pinMode(ENB_PIN, OUTPUT);
+  pinMode(IN3_PIN, OUTPUT);
+  pinMode(IN4_PIN, OUTPUT);
+  pinMode(IR_PIN, INPUT);
+  lcd.setCursor(0, 0);
+  lcd.print("LCD Connected!");
+
+  lcd.setCursor(0, 1);
+  lcd.print("Leonardo I2C");
+
+  stopMotors();
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  long dist = averDistance();
+  int s = digitalRead(IR_PIN);
+
+  Serial.print("Distance: ");
+  Serial.print(dist);
+  Serial.println(" cm");
+  if (s == LOW){
+    delay(400);
+    stopMotors();
+  }else{
+      if (dist > 0 && dist < OBSTACLE_CM) {
+      smartAvoid();
+    } else {
+  display(dist);
+  forward(150);
+  }
+  }
+
+
+
+}
+
+
+void smartAvoid() {
+  stopMotors();
+  delay(PAUSE_MS);
+
+  // 1) Try RIGHT
+  turnRight(SPEED_TURN);
+  delay(TURN_TIME_MS);
+  stopMotors();
+  delay(PAUSE_MS);
+
+  long dRight = averDistance();
+  display(dRight);
+  delay(100);
+
+  // If right is also blocked, go LEFT twice (net: ends facing left)
+  if (dRight > 0 && dRight < OBSTACLE_CM) {
+    // turn left for 2x time (right + 2*left => net left)
+    turnLeft(SPEED_TURN);
+    delay(TURN_TIME_MS * 2);
+    stopMotors();
+    delay(PAUSE_MS);
+  }
+
+  // move forward after choosing direction
+  forward(SPEED_MOVE);
+}
+
+void display(long data){
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Obstacle Detection!");
+
+  lcd.setCursor(0, 1);
+  lcd.print(data);
+}
+

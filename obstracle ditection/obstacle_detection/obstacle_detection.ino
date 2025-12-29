@@ -150,3 +150,17 @@ long distanceMeasure() {
   }
   return distance;
 }
+// Simple smoothing: 3 samples, ignore 400s, average others
+long averDistance() {
+  const int N = 3;
+  long sum = 0;
+  int count = 0;
+
+  for (int i = 0; i < N; i++) {
+    long d = distanceMeasure();
+    if (d > 0 && d < MAX_DISTANCE) {  // ignore 400 (error)
+      sum += d;
+      count++;
+    }
+    delay(10);  // small gap between pings
+  }

@@ -169,3 +169,13 @@ long averDistance() {
   }
   return sum / count;     // average of valid readings
 }
+
+void forward(int speedVal) {
+  digitalWrite(IN1_PIN, HIGH);
+  digitalWrite(IN2_PIN, LOW);
+  analogWrite(ENA_PIN, speedVal);
+
+  digitalWrite(IN3_PIN, HIGH);
+  digitalWrite(IN4_PIN, LOW);
+  analogWrite(ENB_PIN, speedVal);
+}

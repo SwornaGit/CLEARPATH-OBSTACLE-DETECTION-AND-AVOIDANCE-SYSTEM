@@ -190,4 +190,24 @@ void backward(int speedVal) {
   analogWrite(ENB_PIN, speedVal);
 }
 
+void turnLeft(int speedVal) {
+  digitalWrite(IN1_PIN, LOW);
+  digitalWrite(IN2_PIN, HIGH);
+  analogWrite(ENA_PIN, speedVal);
+
+  digitalWrite(IN3_PIN, HIGH);
+  digitalWrite(IN4_PIN, LOW);
+  analogWrite(ENB_PIN, speedVal);
+}
+
+
+void turnRight(int speedVal) {
+  digitalWrite(IN1_PIN, HIGH);
+  digitalWrite(IN2_PIN, LOW);
+  analogWrite(ENA_PIN, speedVal);
+
+  digitalWrite(IN3_PIN, LOW);
+  digitalWrite(IN4_PIN, HIGH);
+  analogWrite(ENB_PIN, speedVal);
+}
 

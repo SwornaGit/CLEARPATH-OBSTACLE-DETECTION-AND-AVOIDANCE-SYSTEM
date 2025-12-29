@@ -210,4 +210,12 @@ void turnRight(int speedVal) {
   digitalWrite(IN4_PIN, HIGH);
   analogWrite(ENB_PIN, speedVal);
 }
+void stopMotors() {
+  analogWrite(ENA_PIN, 0);
+  analogWrite(ENB_PIN, 0);
 
+  digitalWrite(IN1_PIN, LOW);
+  digitalWrite(IN2_PIN, LOW);
+  digitalWrite(IN3_PIN, LOW);
+  digitalWrite(IN4_PIN, LOW);
+}

@@ -129,3 +129,24 @@ void display(long data){
   lcd.print(data);
 }
 
+// One raw measurement with timeout + clamp
+long distanceMeasure() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  long duration = pulseIn(ECHO_PIN, HIGH, 20000);  // timeout
+
+  if (duration == 0) {
+    return MAX_DISTANCE;              // timeout → treat as very far
+  }
+
+  long distance = duration * 0.034 / 2;  // cm
+
+  if (distance > MAX_DISTANCE) {
+    distance = MAX_DISTANCE;
+  }
+  return distance;
+}

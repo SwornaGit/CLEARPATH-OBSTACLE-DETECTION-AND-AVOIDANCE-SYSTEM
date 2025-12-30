@@ -18,17 +18,20 @@
 
 #define IR_PIN 5   // IR sensor OUT -> D5 (Leonardo)
 
+
 // --- tuning values (adjust to your car) ---
 const int SPEED_MOVE = 150;
 const int SPEED_TURN = 150;
 
 const int TURN_TIME_MS = 500;     // how long a "right try" turn is
 const int PAUSE_MS     = 500;     // small pause between actions
+
 // If unsure, run I2C Scanner
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 const int OBSTACLE_CM  = 20;
 const int MAX_DISTANCE = 400;
+
 
 long distanceMeasure();
 void forward(int speedVal);
@@ -129,6 +132,7 @@ void display(long data){
   lcd.print(data);
 }
 
+
 // One raw measurement with timeout + clamp
 long distanceMeasure() {
   digitalWrite(TRIG_PIN, LOW);
@@ -150,6 +154,7 @@ long distanceMeasure() {
   }
   return distance;
 }
+
 // Simple smoothing: 3 samples, ignore 400s, average others
 long averDistance() {
   const int N = 3;
@@ -164,11 +169,13 @@ long averDistance() {
     }
     delay(10);  // small gap between pings
   }
+
   if (count == 0) {
     return MAX_DISTANCE;  // all were bad
   }
   return sum / count;     // average of valid readings
 }
+
 
 void forward(int speedVal) {
   digitalWrite(IN1_PIN, HIGH);
@@ -179,6 +186,7 @@ void forward(int speedVal) {
   digitalWrite(IN4_PIN, LOW);
   analogWrite(ENB_PIN, speedVal);
 }
+
 
 void backward(int speedVal) {
   digitalWrite(IN1_PIN, LOW);
@@ -200,7 +208,6 @@ void turnLeft(int speedVal) {
   analogWrite(ENB_PIN, speedVal);
 }
 
-
 void turnRight(int speedVal) {
   digitalWrite(IN1_PIN, HIGH);
   digitalWrite(IN2_PIN, LOW);
@@ -210,6 +217,7 @@ void turnRight(int speedVal) {
   digitalWrite(IN4_PIN, HIGH);
   analogWrite(ENB_PIN, speedVal);
 }
+
 void stopMotors() {
   analogWrite(ENA_PIN, 0);
   analogWrite(ENB_PIN, 0);
